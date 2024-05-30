@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup</title>
+  <!-- Agregar enlace a Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 offset-md-4 mt-5">
+        <form method="POST" action="/signup/" class="card card-body" id="signupForm">
+          <h1 class="text-center">Signup</h1>
+          {{ error }}
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" class="form-control" placeholder="Write your username" required>
+          </div>
+          <div class="mb-3">
+            <label for="password">Password:</label>
+            <input type="password" name="password1" id="password1" class="form-control" placeholder="Write your password" required>
+          </div>
+          <div class="mb-3">
+            <label for="password2">Confirm Password:</label>
+            <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirm your password" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Signup</button>
+          <a href="/signin/" class="btn red"> Inicia Sesion </a>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Agregar enlace a Bootstrap JS y dependencias -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  {% comment %} <script>
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const form = this;
+      const message = {{ error }}
+      // Aquí puedes agregar la lógica para enviar el formulario usando AJAX
+      // Si el formulario se envía correctamente, muestra el mensaje de éxito:
+      Swal.fire({
+        title: "Registro exitoso!",
+        text: message,
+        icon: "success"
+      }).then(() => {
+        // Después de mostrar la alerta, enviar el formulario
+        form.submit();
+      });
+    });
+  </script> {% endcomment %}
+</body>
+</html>

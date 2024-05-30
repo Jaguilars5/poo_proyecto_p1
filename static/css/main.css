@@ -17,6 +17,7 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
     margin-top: 0;
+    color: white;
 }
 
 a {
@@ -100,7 +101,7 @@ nav ul li a:hover {
 }
 
 .styled-table thead tr {
-    background: #12c064;
+    background: #1263c0;
     color: #ffffff;
     text-align: left;
 }

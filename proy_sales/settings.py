@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middleware.NoCacheMiddleware'
 ]
 
 ROOT_URLCONF = 'proy_sales.urls'
@@ -121,6 +122,7 @@ STATIC_URL = '/static/' # url de archivos estaticos
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)#carpeta fisica de archivos estaticos
 MEDIA_ROOT = os.path.join(BASE_DIR,'media') # carpeta fisica de archivos de Imagenes
 MEDIA_URL = '/media/' # url de imagenes
+LOGIN_URL = '/signin'
 
 
 # Default primary key field type

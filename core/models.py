@@ -3,8 +3,10 @@ from decimal import Decimal
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+
+from proy_sales.utils import valida_cedula,phone_regex
 class Brand(models.Model):
-    description = models.CharField('Articulo',max_length=100)
+    description = models.CharField('Articulo',max_length=100,unique=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -22,13 +24,13 @@ class Brand(models.Model):
 
 class Supplier(models.Model):
     name = models.CharField(max_length=100)
-    ruc = models.CharField(max_length=13)
+    ruc = models.CharField(max_length=13,validators=[valida_cedula],unique=True)
     address = models.CharField(max_length=200)
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20,validators=[phone_regex])
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    state = models.BooleanField('Estado', default = True)
+    state = models.BooleanField('Activo', default = True)
 
     class Meta:
         verbose_name = 'Proveedor'
@@ -45,7 +47,7 @@ class Product(models.Model):
         FERRISARITO = 'FS', 'Ferrisariato'
         COMISARIATO = 'CS', 'Comisariato'
         
-    description = models.CharField('Articulo',max_length=100)
+    description = models.CharField('Articulo',max_length=100,unique=True)
     price=models.DecimalField('Precio',max_digits=10,decimal_places=2,default=Decimal('0.0'))
     stock=models.IntegerField('Stock',default=100)
     expiration_date = models.DateTimeField('Fecha Caducidad',default=timezone.now()+datetime.timedelta(days=30))
@@ -73,7 +75,7 @@ class Product(models.Model):
         return " - ".join([c.description for c in self.categories.all().order_by('description')])
 
 class Category(models.Model):
-    description = models.CharField(verbose_name='Categoria',max_length=100)
+    description = models.CharField(verbose_name='Categoria',max_length=100,unique=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

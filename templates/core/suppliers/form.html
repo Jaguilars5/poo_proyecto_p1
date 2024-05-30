@@ -3,13 +3,23 @@
  <div class="container">
   <div class="form-container">
     <h2 class="title">{{title2}}</h2>
-   
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
     <form method="post" enctype="multipart/form-data" >
         {% csrf_token %}
+        {{error}}
         {% for field in form %}
         <div class="form-group">
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{ field }}
+            {% if field.errors %}
+            <div class="text-danger">
+                {% for error in field.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
         </div>
         {% endfor %}
         <div class="form-group">

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1 class="title">{{ title2 }}</h1>
-  <table class="styled-table">
-    <thead>
+  <table class="table">
+    <thead class="thead-dark">
       <tr>
         <th>Nombre</th>
         <th>Ruc</th>
@@ -34,6 +34,6 @@
     </tbody>
   </table>
   <div class="form-group">
-    <a class="btn blue" href={% url 'core:supplier_create' %}>Nueva Marca</a>
+    <a class="btn btn-dark" href={% url 'core:supplier_create' %}>Nueva Proveedores</a>
   </div>
 {% endblock content  %}

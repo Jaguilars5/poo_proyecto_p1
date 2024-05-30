@@ -5,7 +5,6 @@ from core.models import Category,Brand,Supplier,Product
 admin.site.register(Category)
 admin.site.register(Brand)
 admin.site.register(Supplier)
-
 # Registra la clase ProductAdmin como administrador de los modelos de tipo Product en el panel de administración de Django
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):

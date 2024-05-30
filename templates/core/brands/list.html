@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1 class="title">{{ title2 }}</h1>
-  <table class="styled-table">
-    <thead>
+  <table class="table">
+    <thead class="thead-dark">
       <tr>
         <th>Descripcion</th>
         <th>Fecha Creacion</th>
@@ -14,7 +14,7 @@
       {% for item in brands %}
         <tr>
         <td>{{item.description}}</td>
-        <td>{{item.created}}</td>
+        <td>{{item.created|date:"d/m/Y"}}</td>
         <td>{% if item.state %}
              ✔
             {% else %}
@@ -30,6 +30,6 @@
     </tbody>
   </table>
   <div class="form-group">
-    <a class="btn blue" href={% url 'core:brand_create' %}>Nueva Marca</a>
+    <a class="btn btn-dark" href={% url 'core:brand_create' %}>Nueva Marca</a>
   </div>
 {% endblock content  %}
