@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth import login,logout,authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-
 from core.forms import BrandForm, BrandForm, CategoryForm, ProductForm, SupplierForm
 from core.models import Brand, Category, Product, Supplier
 
@@ -28,7 +27,6 @@ def signup(request):
                 return render(request, 'core/autentification/signup.html', {"form": UserCreationForm(), "error": "Usuario ya existe!."})
         else:
             return render(request, 'core/autentification/signup.html', {"form": UserCreationForm(), "error": "Las contraseñas deben ser iguales."})
-
 def signin(request):
     if request.method == 'GET':
         return render(request, 'core/autentification/signin.html', {"form": AuthenticationForm})
@@ -43,6 +41,7 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('core:signin')
+
 @login_required
 def home(request):
    user=request.user 
@@ -53,17 +52,6 @@ def home(request):
    }
    return render(request,'core/home.html',data)
 
-
-  #  return HttpResponse(f"<h1>{data['title2']}<h1>\
-  #                        <h2>Le da la Bienvenida  a su selecta clientela</h2>")
-  #  products = ["aceite","coca cola","embutido"]
-  #  prods_obj=[{'nombre': producto} for producto in products] # json.dumps()
-  #  return JsonResponse({'mensaje2': data,'productos':prods_obj})
-
- 
-  #  return HttpResponse(f"<h1>{data['title2']}<h1>\
-  #                      <h2>Le da la Bienvenida  a su selecta clientela</h2>")
-# vistas de productos: listar productos 
 @login_required
 def product_List(request):
     data = {
@@ -84,6 +72,7 @@ def product_create(request):
                 product = form.save(commit=False)
                 product.user = request.user
                 product.save()
+                form.save_m2m()
                 return redirect("core:product_list")
             except IntegrityError:
                 data["error"] = "Ocurrió un error de integridad de datos. Por favor, revise su entrada."
@@ -94,9 +83,7 @@ def product_create(request):
         data["form"] = form
     else:
         data["form"] = ProductForm()
-
     return render(request, "core/products/form.html", data)
-    
 @login_required
 def product_update(request,id):
     data = {"title1": "Productos","title2": ">Edicion De Productos"}
@@ -113,6 +100,7 @@ def product_update(request,id):
                 data["error"] = str(e)
         else:
             data["error"]="Por favor, corrija los errores en el formulario."
+        data["form"] = form
     else:
         form = ProductForm(instance=product)
         data["form"]=form
@@ -125,7 +113,6 @@ def product_delete(request,id):
     if request.method == "POST":
         product.delete()
         return redirect("core:product_list")
- 
     return render(request, "core/products/delete.html", data)
 @login_required
 def brand_List(request):
@@ -154,6 +141,7 @@ def brand_create(request):
                 data["error"] = str(e)
         else:
             data["error"]="Por favor, corrija los errores en el formulario."
+        data["form"] = form
     else:
         data["form"] = BrandForm() # controles formulario sin datos
 
@@ -163,10 +151,18 @@ def brand_update(request,id):
     data = {"title1": "Brands","title2": "Edicion De Marcas"}
     brand = Brand.objects.get(pk=id)
     if request.method == "POST":
-      form = BrandForm(request.POST,request.FILES, instance=brand)
-      if form.is_valid():
-            form.save()
-            return redirect("core:brand_list")
+        form = BrandForm(request.POST,request.FILES, instance=brand)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect("core:brand_list")
+            except IntegrityError:
+                data["error"]="Ocurrió un error de integridad de datos. Por favor, revise su entrada."
+            except Exception as e:
+                data["error"] = str(e)
+        else:
+            data["error"]="Por favor, corrija los errores en el formulario."
+        data["form"] = form
     else:
         form = BrandForm(instance=brand)
         data["form"]=form
@@ -216,10 +212,18 @@ def supplier_update(request,id):
     data = {"title1": "Supplier","title2": "Edicion De Provedores"}
     supplier = Supplier.objects.get(pk=id)
     if request.method == "POST":
-      form = SupplierForm(request.POST,request.FILES, instance=supplier)
-      if form.is_valid():
-            form.save()
-            return redirect("core:supplier_list")
+        form = SupplierForm(request.POST,request.FILES, instance=supplier)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect("core:supplier_list")
+            except IntegrityError:
+               data["error"]="Ocurrió un error de integridad de datos. Por favor, revise su entrada." 
+            except Exception as e:
+                data["error"] = str(e)
+        else:
+            data["error"]="Por favor, corrija los errores en el formulario."
+        data["form"] = form
     else:
         form = SupplierForm(instance=supplier)
         data["form"]=form
@@ -269,10 +273,18 @@ def category_update(request,id):
     data = {"title1": "Categorias","title2": "Edicion De Categorias"}
     category = Category.objects.get(pk=id)
     if request.method == "POST":
-      form = CategoryForm(request.POST,request.FILES, instance=category)
-      if form.is_valid():
-            form.save()
-            return redirect("core:category_list")
+        form = CategoryForm(request.POST,request.FILES, instance=category)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect("core:category_list")
+            except IntegrityError:
+               data["error"]="Ocurrió un error de integridad de datos. Por favor, revise su entrada." 
+            except Exception as e:
+                data["error"] = str(e)
+        else:
+            data["error"]="Por favor, corrija los errores en el formulario."
+        data["form"] = form
     else:
         form = CategoryForm(instance=category)
         data["form"]=form

@@ -1,31 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
  <div class="container">
-  <div class="form-container">
+  
     <h2 class="title">{{title2}}</h2>
     {% if error %}
     <div class="alert alert-danger">{{ error }}</div>
 {% endif %}
-    <form method="post" enctype="multipart/form-data" >
+    <form method="post" enctype="multipart/form-data" class="card card-body">
         {% csrf_token %}
         {% for field in form %}
         <div class="form-group">
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{ field }}
             {% if field.errors %}
-                        <div class="text-danger">
-                            {% for error in field.errors %}
-                                <p>{{ error }}</p>
+                <div class="text-danger">
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
                             {% endfor %}
                         </div>
                     {% endif %}
         </div>
         {% endfor %}
         <div class="form-group">
-            <input type="submit" value="Guardar" class="btn blue">
-            <a href={% url 'core:category_list' %} class="btn red"> Cancelar </a>
+            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+            <br>
+            <a href={% url 'core:category_list' %} class="btn btn-danger btn-block"> Cancelar </a>
         </div>
     </form>
-</div>
 </div>
 {% endblock content  %}

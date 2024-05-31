@@ -3,8 +3,8 @@
    <div class="table-container">
 
     <h1 class="title">{{ title2 }}</h1>
-    <table class="table">
-      <thead class="thead-dark">
+    <table class="table table-bordered">
+      <thead>
         <tr>
           <th>Imagen</th>
           <th>Descripcion</th>
@@ -22,7 +22,7 @@
       <tbody>
         {% for item in products %}
           <tr>
-          <td><img src={{item.image.url}} alt="" width="50px" height="50px" border-radius="20%"> </td>
+          <td><img src={{item.image.url}} alt="" width="50px" height="50px" border-radius="20%"></td>
           <td>{{item.description}}</td>
           <td>{{item.price}}</td>
           <td>{{item.stock}}</td>
@@ -46,7 +46,7 @@
       </tbody>
     </table>
      <div class="form-group">
-       <a class="btn btn-dark" href={% url 'core:product_create' %}>Nuevo Producto</a>
+       <a class="btn btn-primary" href={% url 'core:product_create' %}> + Nuevo Producto</a>
      </div>
   </div>
 {% endblock content  %}

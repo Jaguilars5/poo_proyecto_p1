@@ -2,36 +2,44 @@
 
 {% block content %}
 <div class="container">
-    <div class="form-container">
-        <h2 class="title">{{ title2 }}</h2>
-
+{% comment %} <div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-md-3 mt-5"> {% endcomment %}
         {% if error %}
-            <div class="alert alert-danger">{{ error }}</div>
-        {% endif %}
-
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            
-            {% for field in form %}
-                <div class="form-group">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field }}
-                    {% if field.errors %}
-                        <div class="text-danger">
-                            {% for error in field.errors %}
-                                <p>{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-            {% endfor %}
-            
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" class="card card-body">
+        <h2 class="title">{{ title2 }}</h2>
+        {% csrf_token %}
+        
+        {% for field in form %}
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Guardar</button>
-                <br>
-                <a href="{% url 'core:product_list' %}" class="btn btn-danger btn-block">Cancelar</a>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="text-danger">
+                        {% for error in field.errors %}
+                            <p style="color: red;">{{  error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-        </form>
+        {% endfor %}
+        
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+            <br>
+            <a href="{% url 'core:product_list' %}" class="btn btn-danger btn-block">Cancelar</a>
+        </div>
+    </form>
+      {% comment %} </div>
     </div>
+</div> {% endcomment %}
+
+    {% comment %} <div class="container">
+        
+    </div> {% endcomment %}
 </div>
+
+
 {% endblock %}

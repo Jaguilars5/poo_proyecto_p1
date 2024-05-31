@@ -7,8 +7,18 @@
   <!-- Agregar enlace a Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Agregar estilos personalizados -->
+  <style>
+    .background-image {
+      background-image: url('https://wallpaperxyz.com/wp-content/uploads/Gif-Animated-Wallpaper-Background-Full-HD-Free-Download-for-PC-Macbook-261121-Wallpaperxyz.com-31.gif');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      width: 100vw;
+    }
+  </style>
 </head>
-<body>
+<body class="background-image">
   <div class="container">
     <div class="row">
       <div class="col-md-4 offset-md-4 mt-5">
@@ -29,7 +39,7 @@
             <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirm your password" required>
           </div>
           <button type="submit" class="btn btn-primary btn-block">Signup</button>
-          <a href="/signin/" class="btn red"> Inicia Sesion </a>
+          <a href="/signin/" class="btn red">Inicia Sesion</a>
         </form>
       </div>
     </div>
@@ -42,7 +52,7 @@
     document.getElementById('signupForm').addEventListener('submit', function(event) {
       event.preventDefault();
       const form = this;
-      const message = {{ error }}
+      const message = {{ error }};
       // Aquí puedes agregar la lógica para enviar el formulario usando AJAX
       // Si el formulario se envía correctamente, muestra el mensaje de éxito:
       Swal.fire({

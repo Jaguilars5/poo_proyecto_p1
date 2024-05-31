@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="table-container">
 <h1 class="title">{{ title2 }}</h1>
-  <table class="table">
-    <thead class="thead-dark">
+  <table class="table table-bordered">
+    <thead>
       <tr>
         <th>Descripcion</th>
         <th>Fecha Creacion</th>
@@ -30,6 +31,7 @@
     </tbody>
   </table>
   <div class="form-group">
-    <a class="btn btn-dark" href={% url 'core:category_create' %}>Nueva Categoria</a>
+    <a class="btn btn-primary" href={% url 'core:category_create' %}>Nueva Categoria</a>
   </div>
+</div>
 {% endblock content  %}

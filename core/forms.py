@@ -2,9 +2,15 @@ from django import forms
 from core.models import Brand, Category, Product, Supplier
 
 class ProductForm(forms.ModelForm):
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True
+    )
     class Meta:
         model=Product
         fields=['description','price','stock','brand','categories','line','supplier','expiration_date','image','state']
+
     def clean_price(self):
         price = self.cleaned_data.get('price')
         if price < 0:
